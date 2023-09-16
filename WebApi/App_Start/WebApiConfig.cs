@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Net.Http.Headers;
+using System.Web.Http;
 using System.Web.Http.Cors;
 
 namespace WebApi
@@ -13,6 +15,10 @@ namespace WebApi
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            //config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
+            var xmlMediaType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(x => x.MediaType == "application/xml");
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(xmlMediaType);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
