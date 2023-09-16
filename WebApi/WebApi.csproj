@@ -102,7 +102,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.Endpoint\Application.Endpoint.csproj">
+      <Project>{a407764f-9000-417e-b8bb-b3d78f755659}</Project>
+      <Name>Application.Endpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Endpoint\Domain.Endpoint.csproj">
+      <Project>{b258e011-f33a-4c59-9027-7ee6eaa99451}</Project>
+      <Name>Domain.Endpoint</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -43,5 +43,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Endpoint\Domain.Endpoint.csproj">
+      <Project>{b258e011-f33a-4c59-9027-7ee6eaa99451}</Project>
+      <Name>Domain.Endpoint</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
