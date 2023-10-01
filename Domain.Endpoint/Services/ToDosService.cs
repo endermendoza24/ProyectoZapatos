@@ -2,6 +2,7 @@
 using Domain.Endpoint.Interfaces.Repositories;
 using Domain.Endpoint.Interfaces.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domain.Endpoint.Services
 {
@@ -13,7 +14,7 @@ namespace Domain.Endpoint.Services
             _repository = repository;
         }
 
-        public List<ToDo> GetAll()
+        public Task<List<ToDo>> GetAll()
         {
             return _repository.Get();
         }

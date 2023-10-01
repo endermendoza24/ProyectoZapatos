@@ -1,8 +1,8 @@
 ﻿using Domain.Endpoint.Entities;
 using Domain.Endpoint.Interfaces.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace WebApi.Controllers
 {
@@ -16,9 +16,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetToDos()
+        public async Task<IHttpActionResult> GetToDos()
         {
-            List<ToDo> toDos = _toDosService.GetAll();
+            List<ToDo> toDos = await _toDosService.GetAll();
             return Ok(toDos);
         }
     }
