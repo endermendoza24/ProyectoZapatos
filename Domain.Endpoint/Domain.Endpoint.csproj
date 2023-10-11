@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAttributes\EntityAttribute.cs" />
+    <Compile Include="DataAttributes\SQL\SqlPropertyAttribute.cs" />
     <Compile Include="Entities\AuditableEntity.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\ToDo.cs" />
