@@ -58,6 +58,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         IHavePropertyName<TEntity, TProperty>,
         IHaveSqlDbType<TEntity, TProperty>,
         IHaveConversion<TEntity, TProperty>,
+        IHavePrimaryKey,
         IAddPropertySettings
         where TEntity : BaseEntity
     {
@@ -100,7 +101,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             return this;
         }
 
-        public IAddPropertySettings WithConversion<TProvider>(
+        public IHavePrimaryKey WithConversion<TProvider>(
             Expression<Func<TProperty, TProvider>> outgoing,
             Expression<Func<TProvider, TProperty>> incomming)
         {
@@ -113,6 +114,12 @@ namespace Infrastructure.Endpoint.Data.Builders
             };
 
             Settings.Conversion = conversion;
+            return this;
+        }
+
+        public IAddPropertySettings AsPrimaryKey()
+        {
+            Settings.IsPrimaryKey = true;
             return this;
         }
 

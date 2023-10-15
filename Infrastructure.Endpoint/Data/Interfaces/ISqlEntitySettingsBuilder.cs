@@ -36,11 +36,18 @@ namespace Infrastructure.Endpoint.Data.Interfaces
 
     public interface IHaveConversion<TEntity, TProperty> where TEntity : BaseEntity
     {
-        IAddPropertySettings WithConversion<TProvider>(
+        IHavePrimaryKey WithConversion<TProvider>(
             Expression<Func<TProperty, TProvider>> outgoing,
             Expression<Func<TProvider, TProperty>> incomming
         );
 
+        IAddPropertySettings AsPrimaryKey();
+        void AddProperty();
+    }
+
+    public interface IHavePrimaryKey
+    {
+        IAddPropertySettings AsPrimaryKey();
         void AddProperty();
     }
 

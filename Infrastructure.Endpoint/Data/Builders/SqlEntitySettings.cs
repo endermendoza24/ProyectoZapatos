@@ -20,6 +20,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         public bool HasConversion => !(Conversion is null);
         public PropertyConversionData Conversion { get; set; } = null;
         public bool IsComplete { get; set; } = false;
+        public bool IsPrimaryKey { get; set; }
     }
 
     public class PropertyConversionData

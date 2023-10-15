@@ -81,7 +81,10 @@
     <Compile Include="Data\Interfaces\ISqlOperationBuilder.cs" />
     <Compile Include="Data\Interfaces\ISqlEntitySettingsBuilder.cs" />
     <Compile Include="Data\ISqlDbConnection.cs" />
+    <Compile Include="Data\Repositories\GenericRepository.cs" />
     <Compile Include="Data\Repositories\ToDosRepository.cs" />
+    <Compile Include="Data\Services\EntitiesService.cs" />
+    <Compile Include="Data\Interfaces\IEntitiesService.cs" />
     <Compile Include="Data\SqlDbConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\ServiceCollectionExtension.cs" />
