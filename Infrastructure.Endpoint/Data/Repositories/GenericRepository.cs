@@ -1,7 +1,8 @@
 ﻿using Domain.Endpoint.Entities;
 using Infrastructure.Endpoint.Data.Builders;
 using Infrastructure.Endpoint.Data.Interfaces;
-using System.Collections.Generic;
+using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -10,18 +11,53 @@ namespace Infrastructure.Endpoint.Data.Repositories
     public class GenericRepository<T> where T : BaseEntity
     {
         protected readonly ISqlCommandOperationBuilder operationBuilder;
+        protected readonly ISqlDbConnection sqlDbConnection;
 
-        public GenericRepository(ISqlCommandOperationBuilder operationBuilder)
+        public GenericRepository(ISqlDbConnection sqlDbConnection, ISqlCommandOperationBuilder operationBuilder)
         {
             this.operationBuilder = operationBuilder;
+            this.sqlDbConnection = sqlDbConnection;
         }
 
-        public async Task<List<T>> GetAsync()
+        public Task<DataTable> GetDataTableAsync()
         {
-            SqlCommand command = operationBuilder.Initialize<T>()
+            SqlCommand readCommand = operationBuilder.Initialize<T>()
                 .WithOperation(SqlReadOperation.Select)
                 .BuildReader();
+            return sqlDbConnection.ExecuteQueryCommandAsync(readCommand);
+        }
+        
+        public Task<DataTable> GetDataTableByIdAsync(Guid id)
+        {
+            SqlCommand readCommand = operationBuilder.Initialize<T>()
+                .WithOperation(SqlReadOperation.SelectById)
+                .WithId(id)
+                .BuildReader();
+            return sqlDbConnection.ExecuteQueryCommandAsync(readCommand);
+        }
 
+        public async Task CreateAsync(T entity)
+        {
+            SqlCommand writeCommand = operationBuilder.From(entity)
+                .WithOperation(SqlWriteOperation.Create)
+                .BuildWritter();
+            await sqlDbConnection.ExecuteNonQueryCommandAsync(writeCommand);
+        }
+        
+        public async Task UpdateAsync(T entity)
+        {
+            SqlCommand writeCommand = operationBuilder.From(entity)
+                .WithOperation(SqlWriteOperation.Update)
+                .BuildWritter();
+            await sqlDbConnection.ExecuteNonQueryCommandAsync(writeCommand);
+        }
+        
+        public async Task DeleteAsync(T entity)
+        {
+            SqlCommand writeCommand = operationBuilder.From(entity)
+                .WithOperation(SqlWriteOperation.Delete)
+                .BuildWritter();
+            await sqlDbConnection.ExecuteNonQueryCommandAsync(writeCommand);
         }
     }
 }

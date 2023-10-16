@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -9,8 +10,10 @@ namespace Infrastructure.Endpoint.Data
         //SqlConnection connection { get; set; }
         void OpenConnection();
         void CloseConnection();
-        T GetDataRowValue<T>(DataRow row, string index, T defaultValue = default);
+        TProperty GetDataRowValue<TProperty>(DataRow row, string index, TProperty defaultValue = default);
         Task<DataTable> ExecuteQueryCommandAsync(string sql);
+        Task<DataTable> ExecuteQueryCommandAsync(SqlCommand command);
+        Task<int> ExecuteNonQueryCommandAsync(SqlCommand command);
         SqlDataAdapter CreateDataApdapter(string query);
     }
 }

@@ -23,7 +23,7 @@ namespace Infrastructure.Endpoint.Data.Interfaces
 
     public interface IHavePrimaryKeyValue : IExecuteReadBuilder
     {
-        IExecuteWriteBuilder WithId(Guid id);
+        IExecuteReadBuilder WithId(Guid id);
     }
 
     public interface IExecuteReadBuilder

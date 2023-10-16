@@ -1,6 +1,7 @@
 ﻿using Domain.Endpoint.Entities;
 using Domain.Endpoint.Interfaces.Repositories;
 using Domain.Endpoint.Interfaces.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,15 +9,35 @@ namespace Domain.Endpoint.Services
 {
     public class ToDosService : IToDosService
     {
-        private readonly IToDosRepository _repository;
-        public ToDosService(IToDosRepository repository)
+        private readonly IToDosRepository toDosRepository;
+        public ToDosService(IToDosRepository toDosRepository)
         {
-            _repository = repository;
+            this.toDosRepository = toDosRepository;
+        }
+
+        public Task CreateAsync(ToDo toDo)
+        {
+            return toDosRepository.CreateAsync(toDo);
+        }
+
+        public Task DeleteAsync(ToDo toDo)
+        {
+            return toDosRepository.DeleteAsync(toDo);
         }
 
         public Task<List<ToDo>> GetAll()
         {
-            return _repository.Get();
+            return toDosRepository.GetAsync();
+        }
+
+        public Task<ToDo> GetByIdAsync(Guid id)
+        {
+            return toDosRepository.GetByIdAsync(id);
+        }
+
+        public Task UpdateAsync(ToDo toDo)
+        {
+            return toDosRepository.UpdateAsync(toDo);
         }
     }
 }

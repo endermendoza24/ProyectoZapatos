@@ -64,5 +64,25 @@ namespace Infrastructure.Endpoint.Data
         {
             return !row.IsNull(index) ? (T)row[index] : defaultValue;
         }
+
+        public async Task<DataTable> ExecuteQueryCommandAsync(SqlCommand command)
+        {
+            OpenConnection();
+            DataTable dt = new DataTable();
+            SqlDataReader reader = await command.ExecuteReaderAsync();
+            command.Connection = connection;
+            dt.Load(reader);
+            command.Dispose();
+            return dt;
+        }
+
+        public async Task<int> ExecuteNonQueryCommandAsync(SqlCommand command)
+        {
+            OpenConnection();
+            command.Connection = connection;
+            int affectedRows = await command.ExecuteNonQueryAsync();
+            command.Dispose();
+            return affectedRows;
+        }
     }
 }

@@ -76,7 +76,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             return this;
         }
 
-        public IExecuteWriteBuilder WithId(Guid id)
+        public IExecuteReadBuilder WithId(Guid id)
         {
             this.id = id;
             return this;
