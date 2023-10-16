@@ -22,7 +22,7 @@ namespace Infrastructure.Endpoint.Data.Builders
     {
         private string _tableName;
         private string _schema = string.Empty;
-        private List<SqlEntityPropertySettings> _properties = new List<SqlEntityPropertySettings>();
+        private List<SqlColumnSettings> _properties = new List<SqlColumnSettings>();
 
         public void Table(string tableName)
         {
@@ -49,7 +49,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             {
                 TableName = _tableName,
                 Schema = _schema,
-                Properties = _properties.Where(prop => prop.IsComplete).ToList(),
+                Columns = _properties.Where(prop => prop.IsComplete).ToList(),
             };
         }
     }
@@ -62,7 +62,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         IAddPropertySettings
         where TEntity : BaseEntity
     {
-        public SqlEntityPropertySettings Settings = new SqlEntityPropertySettings();
+        public SqlColumnSettings Settings = new SqlColumnSettings();
         private readonly Expression<Func<TEntity, TProperty>> _lambdaExpression;
 
         public SqlPropertySettingsBuilder(Expression<Func<TEntity, TProperty>> lambdaExpression)
@@ -72,13 +72,15 @@ namespace Infrastructure.Endpoint.Data.Builders
 
         public IHaveSqlDbType<TEntity, TProperty> WithName(string name)
         {
-            Settings.PropertyName = name;
+            Settings.Name = name;
+            Settings.DomainName = GetName(_lambdaExpression);
             return this;
         }
 
         public IHaveSqlDbType<TEntity, TProperty> SetDefaultName()
         {
-            Settings.PropertyName = GetName(_lambdaExpression);
+            Settings.Name = GetName(_lambdaExpression);
+            Settings.DomainName = GetName(_lambdaExpression);
             return this;
         }
 
@@ -126,6 +128,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         public void AddProperty()
         {
             Settings.IsComplete = true;
+            Settings.IsNullable = typeof(TProperty).IsGenericType && typeof(TProperty).GetGenericTypeDefinition() == typeof(Nullable<>);
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using Domain.Endpoint.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq.Expressions;
 
 namespace Infrastructure.Endpoint.Data.Builders
 {
@@ -10,17 +8,22 @@ namespace Infrastructure.Endpoint.Data.Builders
     {
         public string TableName { get; set; }
         public string Schema { get; set; }
-        public List<SqlEntityPropertySettings> Properties { get; set; }
+        public bool HasSchema { get => !string.IsNullOrEmpty(Schema); }
+        public string NormalizedTableName { get => HasSchema ? $"[{Schema}].[{TableName}]" : TableName; }
+        public List<SqlColumnSettings> Columns { get; set; }
     }
 
-    public class SqlEntityPropertySettings
+    public class SqlColumnSettings
     {
-        public string PropertyName { get; set; }
+        public string Name { get; set; }
+        public string DomainName { get; set; }
+        public string ParameterName { get => $"@{Name}"; }
         public SqlDbType SqlDbType { get; set; }
         public bool HasConversion => !(Conversion is null);
         public PropertyConversionData Conversion { get; set; } = null;
         public bool IsComplete { get; set; } = false;
         public bool IsPrimaryKey { get; set; }
+        public bool IsNullable { get; set; }
     }
 
     public class PropertyConversionData

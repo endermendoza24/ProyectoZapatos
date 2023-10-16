@@ -77,8 +77,8 @@
   <ItemGroup>
     <Compile Include="Data\Builders\SqlEntitySettings.cs" />
     <Compile Include="Data\Builders\SqlEntitySettingsBuilder.cs" />
-    <Compile Include="Data\Builders\SqlOperationBuilder.cs" />
-    <Compile Include="Data\Interfaces\ISqlOperationBuilder.cs" />
+    <Compile Include="Data\Builders\SqlCommandOperationBuilder.cs" />
+    <Compile Include="Data\Interfaces\ISqlCommandOperationBuilder.cs" />
     <Compile Include="Data\Interfaces\ISqlEntitySettingsBuilder.cs" />
     <Compile Include="Data\ISqlDbConnection.cs" />
     <Compile Include="Data\Repositories\GenericRepository.cs" />

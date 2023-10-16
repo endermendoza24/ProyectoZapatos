@@ -14,6 +14,7 @@ namespace Infrastructure.Endpoint.Extensions
         {
             services.AddScoped<IToDosRepository, ToDosRepository>();
             services.AddTransient<ISqlEntitySettingsBuilder, SqlEntitySettingsBuilder>();
+            services.AddTransient<ISqlCommandOperationBuilder, SqlCommandOperationBuilder>();
             services.AddSingleton<IEntitiesService, EntitiesService>();
             services.AddSingleton<ISqlDbConnection>(SqlDbConnection.GetInstance());
             return services;
