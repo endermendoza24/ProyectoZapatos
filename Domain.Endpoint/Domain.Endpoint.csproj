@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DataAttributes\EntityAttribute.cs" />
     <Compile Include="DataAttributes\SQL\SqlPropertyAttribute.cs" />
+    <Compile Include="DTOs\ToDoDto.cs" />
     <Compile Include="Entities\AuditableEntity.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\ToDo.cs" />

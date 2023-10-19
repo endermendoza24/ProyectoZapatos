@@ -1,4 +1,5 @@
-﻿using Domain.Endpoint.Entities;
+﻿using Domain.Endpoint.DTOs;
+using Domain.Endpoint.Entities;
 using Domain.Endpoint.Interfaces.Repositories;
 using Domain.Endpoint.Interfaces.Services;
 using System;
@@ -15,14 +16,27 @@ namespace Domain.Endpoint.Services
             this.toDosRepository = toDosRepository;
         }
 
-        public Task CreateAsync(ToDo toDo)
+        public async Task<ToDo> CreateAsync(CreateToDoDto toDoDto)
         {
-            return toDosRepository.CreateAsync(toDo);
+            ToDo toDo = new ToDo
+            {
+                Id = Guid.NewGuid(),
+                Title = toDoDto.Title,
+                Description = toDoDto.Description,
+                Status = ToDoStatus.NotStarted,
+                Done = false,
+                CreatedAt = DateTime.UtcNow
+            };
+            await toDosRepository.CreateAsync(toDo);
+
+            return toDo;
         }
 
-        public Task DeleteAsync(ToDo toDo)
+        public async Task<ToDo> DeleteAsync(Guid id)
         {
-            return toDosRepository.DeleteAsync(toDo);
+            ToDo toDo = await GetByIdAsync(id);
+            await toDosRepository.DeleteAsync(toDo);
+            return toDo;
         }
 
         public Task<List<ToDo>> GetAll()
@@ -35,9 +49,30 @@ namespace Domain.Endpoint.Services
             return toDosRepository.GetByIdAsync(id);
         }
 
-        public Task UpdateAsync(ToDo toDo)
+        public async Task<ToDo> UpdateAsync(Guid id, UpdateToDoDto toDoDto)
         {
-            return toDosRepository.UpdateAsync(toDo);
+            ToDo dbToDo = await GetByIdAsync(id);
+
+            bool hasStarted = toDoDto.Status == ToDoStatus.InProgress;
+            bool hasFinished = toDoDto.Status == ToDoStatus.Completed;
+            ToDo toDo = new ToDo
+            {
+                Id = dbToDo.Id,
+                Title = toDoDto.Title,
+                Description = toDoDto.Description,
+                Status = toDoDto.Status,
+                Done = hasFinished,
+                UpdatedAt = DateTime.UtcNow,
+                CreatedAt = dbToDo.CreatedAt
+            };
+
+            if (hasStarted)
+            {
+                toDo.StartedAt = DateTime.UtcNow;
+            }
+
+            await toDosRepository.UpdateAsync(toDo);
+            return toDo;
         }
     }
 }

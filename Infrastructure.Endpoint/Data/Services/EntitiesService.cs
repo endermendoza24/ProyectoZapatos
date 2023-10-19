@@ -37,7 +37,7 @@ namespace Infrastructure.Endpoint.Data.Services
         {
             return builder.Entity<ToDo>(entity =>
             {
-                entity.Table(nameof(ToDo));
+                entity.Table("ToDos");
                 entity.Property(property => property.Id)
                     .SetDefaultName()
                     .WithSqlDbType(SqlDbType.UniqueIdentifier)

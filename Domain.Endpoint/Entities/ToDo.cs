@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace Domain.Endpoint.Entities
 {
@@ -16,7 +15,7 @@ namespace Domain.Endpoint.Entities
         public string Description { get; set; }
         public bool Done { get; set; }
         public ToDoStatus Status { get; set; }
-        public DateTime? StartedAt { get; set; }
+        public Nullable<DateTime> StartedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

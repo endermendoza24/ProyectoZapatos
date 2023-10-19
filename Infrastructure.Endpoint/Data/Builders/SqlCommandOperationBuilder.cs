@@ -39,7 +39,7 @@ namespace Infrastructure.Endpoint.Data.Builders
 
         public IHaveSqlReadOperation Initialize<TEntity>() where TEntity : BaseEntity
         {
-            return new SqlCommandOperationBuilder<TEntity>();
+            return new SqlCommandOperationBuilder<TEntity>(entityService);
         }
     }
 
@@ -62,7 +62,10 @@ namespace Infrastructure.Endpoint.Data.Builders
             this.entityService = entityService;
         }
 
-        public SqlCommandOperationBuilder() { }
+        public SqlCommandOperationBuilder(IEntitiesService entityService)
+        {
+            this.entityService = entityService;
+        }
 
         public IExecuteWriteBuilder WithOperation(SqlWriteOperation operation)
         {
@@ -233,17 +236,18 @@ namespace Infrastructure.Endpoint.Data.Builders
             builder.Append($"UPDATE {entityName} SET ");
 
             int lastIndex = columnSettings.Count - 1;
-            int index = 0;
+            //int index = 0;
             SqlColumnSettings primaryKey = columnSettings.Where(column => column.IsPrimaryKey).FirstOrDefault();
             if (primaryKey is null) throw new Exception("No Primary Key Found");
 
-            foreach (SqlColumnSettings columnSetting in columnSettings)
+            foreach (var data in columnSettings.Select((columnSetting, index) => (columnSetting, index)))
             {
+                SqlColumnSettings columnSetting = data.columnSetting;
                 if (columnSetting.IsPrimaryKey) continue;
 
                 builder.Append($"{columnSetting.Name} = {columnSetting.ParameterName}");
-                builder.Append(lastIndex.Equals(index) ? " " : ",");
-                index++;
+                builder.Append(lastIndex.Equals(data.index) ? " " : ",");
+                //index++;
             }
 
             builder.Append($"WHERE {primaryKey.Name} = {primaryKey.ParameterName};");

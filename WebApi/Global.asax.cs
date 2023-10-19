@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
-using System.Web;
+//using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 using System.Web.Http;
-using System.Web.Routing;
 
 namespace WebApi
 {
@@ -15,7 +10,14 @@ namespace WebApi
         {
             //var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             //json.UseDataContractJsonSerializer = true;
-            //json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All;
+            //json.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All;
+            //var formatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            //formatter.SerializerSettings = new JsonSerializerSettings
+            //{
+            //    Formatting = Formatting.Indented,
+            //    TypeNameHandling = TypeNameHandling.Objects,
+            //    ContractResolver = new CamelCasePropertyNamesContractResolver()
+            //};
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }

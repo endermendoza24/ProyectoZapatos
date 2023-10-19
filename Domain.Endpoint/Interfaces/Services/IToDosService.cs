@@ -1,4 +1,5 @@
-﻿using Domain.Endpoint.Entities;
+﻿using Domain.Endpoint.DTOs;
+using Domain.Endpoint.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,8 +10,8 @@ namespace Domain.Endpoint.Interfaces.Services
     {
         Task<List<ToDo>> GetAll();
         Task<ToDo> GetByIdAsync(Guid id);
-        Task CreateAsync(ToDo toDo);
-        Task UpdateAsync(ToDo toDo);
-        Task DeleteAsync(ToDo toDo);
+        Task<ToDo> CreateAsync(CreateToDoDto toDo);
+        Task<ToDo> UpdateAsync(Guid id, UpdateToDoDto toDo);
+        Task<ToDo> DeleteAsync(Guid id);
     }
 }

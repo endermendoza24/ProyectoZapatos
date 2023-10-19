@@ -69,8 +69,8 @@ namespace Infrastructure.Endpoint.Data
         {
             OpenConnection();
             DataTable dt = new DataTable();
-            SqlDataReader reader = await command.ExecuteReaderAsync();
             command.Connection = connection;
+            SqlDataReader reader = await command.ExecuteReaderAsync();
             dt.Load(reader);
             command.Dispose();
             return dt;
