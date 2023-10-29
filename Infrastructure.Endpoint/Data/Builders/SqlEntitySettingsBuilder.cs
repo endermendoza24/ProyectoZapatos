@@ -58,6 +58,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         IHavePropertyName<TEntity, TProperty>,
         IHaveSqlDbType<TEntity, TProperty>,
         IHaveConversion<TEntity, TProperty>,
+        IHaveComputedColumn,
         IHavePrimaryKey,
         IAddPropertySettings
         where TEntity : BaseEntity
@@ -122,6 +123,12 @@ namespace Infrastructure.Endpoint.Data.Builders
         public IAddPropertySettings AsPrimaryKey()
         {
             Settings.IsPrimaryKey = true;
+            return this;
+        }
+
+        public IAddPropertySettings AsComputed()
+        {
+            Settings.IsComputedColumn = true;
             return this;
         }
 

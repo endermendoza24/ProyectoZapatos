@@ -149,6 +149,7 @@ namespace Infrastructure.Endpoint.Data.Services
                 entity.Property(property => property.LotNumber)
                     .SetDefaultName()
                     .WithSqlDbType(SqlDbType.Int)
+                    .AsComputed()
                     .AddProperty();
                 entity.Property(property => property.ProductId)
                     .SetDefaultName()

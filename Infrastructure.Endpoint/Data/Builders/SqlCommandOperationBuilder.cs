@@ -184,6 +184,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             {
                 SqlColumnSettings column = columns.Where(c => c.DomainName == property.Name).FirstOrDefault();
                 if (column is null) continue;
+                if (column.IsComputedColumn) continue;
                 //var underyingType = Nullable.GetUnderlyingType(property.PropertyType);
                 //var returnType = underyingType ?? property.PropertyType;
                 //bool isNullable = returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Nullable<>);
@@ -217,8 +218,12 @@ namespace Infrastructure.Endpoint.Data.Builders
         private string GetInsertQuery(string entityName, List<SqlColumnSettings> columnSettings)
         {
             StringBuilder builder = new StringBuilder();
-            List<string> columns = columnSettings.Select(column => column.Name).ToList();
-            List<string> parameters = columnSettings.Select(setting => setting.ParameterName).ToList();
+            List<string> columns = columnSettings.Where(column => !column.IsComputedColumn)
+                .Select(column => column.Name)
+                .ToList();
+            List<string> parameters = columnSettings.Where(column => !column.IsComputedColumn)
+                .Select(setting => setting.ParameterName)
+                .ToList();
             builder.Append("INSERT INTO ")
                 .Append($"{entityName} (")
                 .Append(string.Join(",", columns))
@@ -244,6 +249,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             {
                 SqlColumnSettings columnSetting = data.columnSetting;
                 if (columnSetting.IsPrimaryKey) continue;
+                if (columnSetting.IsComputedColumn) continue;
 
                 builder.Append($"{columnSetting.Name} = {columnSetting.ParameterName}");
                 builder.Append(lastIndex.Equals(data.index) ? " " : ",");

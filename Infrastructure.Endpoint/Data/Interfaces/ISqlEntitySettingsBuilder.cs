@@ -34,7 +34,7 @@ namespace Infrastructure.Endpoint.Data.Interfaces
         IHaveConversion<TEntity, TProperty> WithSqlDbType(SqlDbType sqlDbType);
     }
 
-    public interface IHaveConversion<TEntity, TProperty> where TEntity : BaseEntity
+    public interface IHaveConversion<TEntity, TProperty> : IHaveComputedColumn, IAddPropertySettings where TEntity : BaseEntity
     {
         IHavePrimaryKey WithConversion<TProvider>(
             Expression<Func<TProperty, TProvider>> outgoing,
@@ -42,13 +42,17 @@ namespace Infrastructure.Endpoint.Data.Interfaces
         );
 
         IAddPropertySettings AsPrimaryKey();
-        void AddProperty();
+        //void AddProperty();
     }
 
-    public interface IHavePrimaryKey
+    public interface IHaveComputedColumn : IAddPropertySettings
+    {
+        IAddPropertySettings AsComputed();
+    }
+
+    public interface IHavePrimaryKey : IAddPropertySettings
     {
         IAddPropertySettings AsPrimaryKey();
-        void AddProperty();
     }
 
     public interface IAddPropertySettings

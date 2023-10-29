@@ -19,6 +19,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         public string DomainName { get; set; }
         public string ParameterName { get => $"@{Name}"; }
         public SqlDbType SqlDbType { get; set; }
+        public bool IsComputedColumn { get; set; } = false;
         public bool HasConversion => !(Conversion is null);
         public PropertyConversionData Conversion { get; set; } = null;
         public bool IsComplete { get; set; } = false;
