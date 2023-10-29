@@ -47,6 +47,11 @@
     <Compile Include="DTOs\ToDoDto.cs" />
     <Compile Include="Entities\AuditableEntity.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Dish.cs" />
+    <Compile Include="Entities\Invoice.cs" />
+    <Compile Include="Entities\InvoiceDetail.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductDetail.cs" />
     <Compile Include="Entities\ToDo.cs" />
     <Compile Include="Interfaces\Repositories\IToDosRepository.cs" />
     <Compile Include="Interfaces\Services\IToDosService.cs" />
