@@ -1,6 +1,8 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Endpoint.Data
@@ -83,6 +85,32 @@ namespace Infrastructure.Endpoint.Data
             int affectedRows = await command.ExecuteNonQueryAsync();
             command.Dispose();
             return affectedRows;
+        }
+
+        public Task<bool> RunTransactionAsync(params SqlCommand[] commands)
+        {
+            OpenConnection();
+            SqlTransaction transaction = connection.BeginTransaction();
+
+            try
+            {
+                foreach (var command in commands)
+                {
+                    command.Connection = connection;
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+                Console.WriteLine("The records were written to database.");
+                return Task.FromResult(true);
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                Console.WriteLine("Transaction failed. Rolled back.");
+                return Task.FromResult(false);
+            }
         }
     }
 }

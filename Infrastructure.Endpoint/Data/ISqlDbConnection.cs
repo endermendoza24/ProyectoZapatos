@@ -15,5 +15,6 @@ namespace Infrastructure.Endpoint.Data
         Task<DataTable> ExecuteQueryCommandAsync(SqlCommand command);
         Task<int> ExecuteNonQueryCommandAsync(SqlCommand command);
         SqlDataAdapter CreateDataApdapter(string query);
+        Task<bool> RunTransactionAsync(params SqlCommand[] commands);
     }
 }

@@ -19,7 +19,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
             this.sqlDbConnection = sqlDbConnection;
         }
 
-        public Task<DataTable> GetDataTableAsync()
+        public virtual Task<DataTable> GetDataTableAsync()
         {
             SqlCommand readCommand = operationBuilder.Initialize<T>()
                 .WithOperation(SqlReadOperation.Select)
@@ -27,7 +27,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
             return sqlDbConnection.ExecuteQueryCommandAsync(readCommand);
         }
         
-        public Task<DataTable> GetDataTableByIdAsync(Guid id)
+        public virtual Task<DataTable> GetDataTableByIdAsync(Guid id)
         {
             SqlCommand readCommand = operationBuilder.Initialize<T>()
                 .WithOperation(SqlReadOperation.SelectById)
@@ -36,7 +36,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
             return sqlDbConnection.ExecuteQueryCommandAsync(readCommand);
         }
 
-        public async Task CreateAsync(T entity)
+        public virtual async Task CreateAsync(T entity)
         {
             SqlCommand writeCommand = operationBuilder.From(entity)
                 .WithOperation(SqlWriteOperation.Create)
@@ -44,7 +44,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
             await sqlDbConnection.ExecuteNonQueryCommandAsync(writeCommand);
         }
         
-        public async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
             SqlCommand writeCommand = operationBuilder.From(entity)
                 .WithOperation(SqlWriteOperation.Update)
@@ -52,7 +52,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
             await sqlDbConnection.ExecuteNonQueryCommandAsync(writeCommand);
         }
         
-        public async Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(T entity)
         {
             SqlCommand writeCommand = operationBuilder.From(entity)
                 .WithOperation(SqlWriteOperation.Delete)
