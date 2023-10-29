@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Endpoint.Entities
 {
-    public class ProductDetail
+    public class ProductDetail : AuditableEntity
     {
         public int LotNumber { get; set; }
         public Guid ProductId { get; set; }

@@ -9,6 +9,7 @@ namespace Domain.Endpoint.Entities
         public Guid? DishId { get; set; }
         public string ItemType { get; set; }
         public int Quantity { get; set; }
+        public decimal Price { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Discount { get; set; }
         public decimal Total { get; set; }
@@ -16,5 +17,7 @@ namespace Domain.Endpoint.Entities
         public Guid CreatedBy { get; set; }
 
         public virtual Invoice Invoice { get; set; }
+        public virtual ProductDetail ProductDetail { get; set; }
+        public virtual Dish Dish { get; set; }
     }
 }
