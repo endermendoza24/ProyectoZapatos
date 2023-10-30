@@ -2,5 +2,5 @@
 
 namespace Domain.Endpoint.Interfaces.Repositories
 {
-    public interface IToDosRepository : IBaseRepository<ToDo> { }
+    public interface IProductDetailsRepository : IBaseRepository<ProductDetail> { }
 }

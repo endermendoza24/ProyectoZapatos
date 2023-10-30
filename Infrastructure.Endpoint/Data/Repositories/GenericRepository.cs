@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Endpoint.Data.Repositories
 {
-    public class GenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         protected readonly ISqlCommandOperationBuilder operationBuilder;
         protected readonly ISqlDbConnection sqlDbConnection;
@@ -26,7 +26,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .BuildReader();
             return sqlDbConnection.ExecuteQueryCommandAsync(readCommand);
         }
-        
+
         public virtual Task<DataTable> GetDataTableByIdAsync(Guid id)
         {
             SqlCommand readCommand = operationBuilder.Initialize<T>()
@@ -43,7 +43,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .BuildWritter();
             await sqlDbConnection.ExecuteNonQueryCommandAsync(writeCommand);
         }
-        
+
         public virtual async Task UpdateAsync(T entity)
         {
             SqlCommand writeCommand = operationBuilder.From(entity)
@@ -51,7 +51,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .BuildWritter();
             await sqlDbConnection.ExecuteNonQueryCommandAsync(writeCommand);
         }
-        
+
         public virtual async Task DeleteAsync(T entity)
         {
             SqlCommand writeCommand = operationBuilder.From(entity)
