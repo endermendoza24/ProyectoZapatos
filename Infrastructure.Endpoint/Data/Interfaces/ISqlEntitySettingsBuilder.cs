@@ -26,7 +26,7 @@ namespace Infrastructure.Endpoint.Data.Interfaces
     public interface IHavePropertyName<TEntity, TProperty> where TEntity : BaseEntity
     {
         IHaveSqlDbType<TEntity, TProperty> WithName(string name);
-        IHaveSqlDbType<TEntity, TProperty> SetDefaultName();
+        IHaveSqlDbType<TEntity, TProperty> SetDefaultName(string v);
     }
 
     public interface IHaveSqlDbType<TEntity, TProperty> where TEntity : BaseEntity

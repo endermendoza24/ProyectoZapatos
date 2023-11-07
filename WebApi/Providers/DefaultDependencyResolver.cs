@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain.Endpoint.Interfaces.Services;
+using Domain.Endpoint.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Web.Http.Dependencies;
@@ -34,6 +36,16 @@ namespace WebApi.Providers
 
     public static class ServiceProviderExtensions
     {
+        //public static IServiceCollection AddControllersAsServices(this IServiceCollection services, IEnumerable<Type> controllerTypes)
+        //{
+        //    foreach (Type type in controllerTypes)
+        //    {
+        //        services.AddTransient(type);
+        //    }
+
+        //    return services;
+        //}
+
         public static IServiceCollection AddControllersAsServices(this IServiceCollection services, IEnumerable<Type> controllerTypes)
         {
             foreach (Type type in controllerTypes)
@@ -41,7 +53,11 @@ namespace WebApi.Providers
                 services.AddTransient(type);
             }
 
+            // Agrega la registración de tus servicios personalizados
+            services.AddScoped<ITallasService, TallasService>(); // Reemplaza TallasService con la implementación real de ITallasService
+
             return services;
         }
+
     }
 }

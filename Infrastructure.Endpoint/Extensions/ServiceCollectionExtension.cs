@@ -13,6 +13,7 @@ namespace Infrastructure.Endpoint.Extensions
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped<IToDosRepository, ToDosRepository>();
+            services.AddScoped<ITallasRepository, TallasRepository>();
             services.AddTransient<ISqlEntitySettingsBuilder, SqlEntitySettingsBuilder>();
             services.AddTransient<ISqlCommandOperationBuilder, SqlCommandOperationBuilder>();
             services.AddSingleton<IEntitiesService, EntitiesService>();

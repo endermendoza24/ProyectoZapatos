@@ -137,5 +137,13 @@ namespace Infrastructure.Endpoint.Data.Builders
             Settings.IsComplete = true;
             Settings.IsNullable = typeof(TProperty).IsGenericType && typeof(TProperty).GetGenericTypeDefinition() == typeof(Nullable<>);
         }
+
+        public IHaveSqlDbType<TEntity, TProperty> SetDefaultName(string v)
+        {
+            Settings.Name = v;
+            Settings.DomainName = v;
+            return this;
+        }
+
     }
 }

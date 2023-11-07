@@ -83,10 +83,12 @@
     <Compile Include="Data\ISqlDbConnection.cs" />
     <Compile Include="Data\Repositories\DishesRepository.cs" />
     <Compile Include="Data\Repositories\GenericRepository.cs" />
+    <Compile Include="Data\Repositories\IGenericRepository.cs" />
     <Compile Include="Data\Repositories\InvoiceDetailsRepository.cs" />
     <Compile Include="Data\Repositories\InvoicesRepository.cs" />
     <Compile Include="Data\Repositories\ProductDetailsRepository.cs" />
     <Compile Include="Data\Repositories\ProductsRepository.cs" />
+    <Compile Include="Data\Repositories\TallaRepository.cs" />
     <Compile Include="Data\Repositories\ToDosRepository.cs" />
     <Compile Include="Data\Services\EntitiesService.cs" />
     <Compile Include="Data\Interfaces\IEntitiesService.cs" />
