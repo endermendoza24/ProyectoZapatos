@@ -14,6 +14,7 @@ namespace Infrastructure.Endpoint.Extensions
         {
             services.AddScoped<IToDosRepository, ToDosRepository>();
             services.AddScoped<ITallasRepository, TallasRepository>();
+            services.AddScoped<IMarcaRepository, MarcaRepository>(); // repo de marca
             services.AddTransient<ISqlEntitySettingsBuilder, SqlEntitySettingsBuilder>();
             services.AddTransient<ISqlCommandOperationBuilder, SqlCommandOperationBuilder>();
             services.AddSingleton<IEntitiesService, EntitiesService>();

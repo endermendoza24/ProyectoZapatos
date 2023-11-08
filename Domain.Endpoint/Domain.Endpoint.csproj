@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DataAttributes\EntityAttribute.cs" />
     <Compile Include="DataAttributes\SQL\SqlPropertyAttribute.cs" />
+    <Compile Include="DTOs\MarcaDTO.cs" />
     <Compile Include="DTOs\TallasDTO.cs" />
     <Compile Include="DTOs\ToDoDto.cs" />
     <Compile Include="Entities\AuditableEntity.cs" />
@@ -59,15 +60,17 @@
     <Compile Include="Interfaces\Repositories\IDishesRepository.cs" />
     <Compile Include="Interfaces\Repositories\IBaseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IInvoicesRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMarcaRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProductDetailsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IProductsRepository.cs" />
     <Compile Include="Interfaces\Repositories\ITallasRepository.cs" />
     <Compile Include="Interfaces\Repositories\IToDosRepository.cs" />
+    <Compile Include="Interfaces\Services\IMarcaService.cs" />
     <Compile Include="Interfaces\Services\ITallasService.cs" />
     <Compile Include="Interfaces\Services\IToDosService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IMarcasRepository.cs" />
     <Compile Include="Services\InvoicesService.cs" />
+    <Compile Include="Services\MarcaService.cs" />
     <Compile Include="Services\TallasService.cs" />
     <Compile Include="Services\ToDosService.cs" />
   </ItemGroup>

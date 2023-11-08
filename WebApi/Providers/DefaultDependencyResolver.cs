@@ -55,6 +55,7 @@ namespace WebApi.Providers
 
             // Agrega la registración de tus servicios personalizados
             services.AddScoped<ITallasService, TallasService>(); // Reemplaza TallasService con la implementación real de ITallasService
+            services.AddScoped<IMarcaService, MarcaService>(); // Reemplaza TallasService con la implementación real de ITallasService
 
             return services;
         }
