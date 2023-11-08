@@ -50,12 +50,18 @@ namespace Infrastructure.Endpoint.Data.Services
         {
             return builder.Entity<Tallas>(entity =>
             {
-                entity.Table("Tallas"); // Nombre de la tabla en la base de datos para Tallas
+                entity.Table("TALLA"); // Nombre de la tabla en la base de datos para Tallas
                 entity.Property(property => property.Num_Talla)
                     .SetDefaultName("NUM_TALLA") // Nombre de la columna en la base de datos
                     .WithSqlDbType(SqlDbType.NVarChar) // Tipo de datos en la base de datos
                     .AddProperty();
-                // Agrega propiedades adicionales de la entidad Tallas y mapea las columnas correspondientes si es necesario.
+
+                entity.Property(property => property.ID_TALLA)
+                    .SetDefaultName("ID_TALLA") // Nombre de la columna en la base de datos para ID_TALLA
+                    .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
+                    .AddProperty();
+
+                // Puedes seguir agregando más propiedades si es necesario.
             }).Build();
         }
 

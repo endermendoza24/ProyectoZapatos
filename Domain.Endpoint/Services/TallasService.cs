@@ -21,7 +21,8 @@ namespace Domain.Endpoint.Services
         {
             Tallas talla = new Tallas
             {
-                Id = Guid.NewGuid(),
+                //Id = Guid.NewGuid(),
+                ID_TALLA= tallaDto.ID_TALLA,
                 Num_Talla = tallaDto.NumTalla
             };
             await tallasRepository.CreateAsync(talla);
