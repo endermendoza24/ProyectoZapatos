@@ -32,10 +32,12 @@ namespace Infrastructure.Endpoint.Data.Services
            
             SqlEntitySettings tallasSettings = BuildTallasSettings(); // Agrega esta línea
             SqlEntitySettings marcaSettings = BuildMarcaSettings();
+            SqlEntitySettings colorSettings = BuildColorSettings();
 
           
             entities.Add(typeof(Tallas), tallasSettings); // Agrega esta línea
             entities.Add(typeof(Marca), marcaSettings);
+            entities.Add(typeof(Color), colorSettings);
         }
 
         private SqlEntitySettings BuildTallasSettings()
@@ -50,6 +52,24 @@ namespace Infrastructure.Endpoint.Data.Services
 
                 entity.Property(property => property.ID_TALLA)
                     .SetDefaultName("ID_TALLA") // Nombre de la columna en la base de datos para ID_TALLA
+                    .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
+                    .AddProperty();
+
+                // Puedes seguir agregando más propiedades si es necesario.
+            }).Build();
+        }
+        private SqlEntitySettings BuildColorSettings()
+        {
+            return builder.Entity<Color>(entity =>
+            {
+                entity.Table("COLOR"); // Nombre de la tabla en la base de datos para Tallas
+                entity.Property(property => property.NOMBRE_COLOR)
+                    .SetDefaultName("NOMBRE_COLOR") // Nombre de la columna en la base de datos
+                    .WithSqlDbType(SqlDbType.NVarChar) // Tipo de datos en la base de datos
+                    .AddProperty();
+
+                entity.Property(property => property.ID_COLOR)
+                    .SetDefaultName("ID_COLOR") // Nombre de la columna en la base de datos para ID_TALLA
                     .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
                     .AddProperty();
 

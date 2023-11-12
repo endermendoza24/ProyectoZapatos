@@ -48,6 +48,8 @@ namespace WebApi
             services.AddScoped<IToDosService, ToDosService>();
             services.AddScoped<ITallasService, TallasService>(); // Asegúrate de que TallasService implemente ITallasService
             services.AddScoped<ITallasRepository, TallasRepository>(); // Reemplaza TallasRepository con la implementación real de ITallasRepository
+            services.AddScoped<IColorRepository, ColorRepository>();
+            services.AddScoped<IColorService, ColorService>();
 
             services.AddInfrastructureServices();
         }
