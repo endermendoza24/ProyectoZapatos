@@ -33,11 +33,13 @@ namespace Infrastructure.Endpoint.Data.Services
             SqlEntitySettings tallasSettings = BuildTallasSettings(); // Agrega esta línea
             SqlEntitySettings marcaSettings = BuildMarcaSettings();
             SqlEntitySettings colorSettings = BuildColorSettings();
+            SqlEntitySettings materialSettings = BuildMaterialSettings();
 
           
             entities.Add(typeof(Tallas), tallasSettings); // Agrega esta línea
             entities.Add(typeof(Marca), marcaSettings);
             entities.Add(typeof(Color), colorSettings);
+            entities.Add(typeof(Material), materialSettings);
         }
 
         private SqlEntitySettings BuildTallasSettings()
@@ -53,6 +55,34 @@ namespace Infrastructure.Endpoint.Data.Services
                 entity.Property(property => property.ID_TALLA)
                     .SetDefaultName("ID_TALLA") // Nombre de la columna en la base de datos para ID_TALLA
                     .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
+                    .AddProperty();
+
+                // Puedes seguir agregando más propiedades si es necesario.
+            }).Build();
+        }
+        private SqlEntitySettings BuildMaterialSettings()
+        {
+            return builder.Entity<Material>(entity =>
+            {
+                entity.Table("MATERIAL"); // Nombre de la tabla en la base de datos para Tallas
+                entity.Property(property => property.estado)
+                    .SetDefaultName("estado") // Nombre de la columna en la base de datos
+                    .WithSqlDbType(SqlDbType.Bit) // Tipo de datos en la base de datos
+                    .AddProperty();
+
+                entity.Property(property => property.detalles_material)
+                   .SetDefaultName("detalles_material") // Nombre de la columna en la base de datos
+                   .WithSqlDbType(SqlDbType.VarChar) // Tipo de datos en la base de datos
+                   .AddProperty();
+
+                entity.Property(property => property.NOMBRE_MATERIAL)
+                   .SetDefaultName("NOMBRE_MATERIAL") // Nombre de la columna en la base de datos
+                   .WithSqlDbType(SqlDbType.VarChar) // Tipo de datos en la base de datos
+                   .AddProperty();
+
+                entity.Property(property => property.ID_MATERIAL)
+                    .SetDefaultName("ID_MATERIAL") // Nombre de la columna en la base de datos para ID_TALLA
+                    .WithSqlDbType(SqlDbType.VarChar) // Tipo de datos en la base de datos
                     .AddProperty();
 
                 // Puedes seguir agregando más propiedades si es necesario.

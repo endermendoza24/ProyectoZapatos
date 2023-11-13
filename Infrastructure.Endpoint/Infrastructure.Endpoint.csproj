@@ -88,6 +88,7 @@
     <Compile Include="Data\Repositories\InvoiceDetailsRepository.cs" />
     <Compile Include="Data\Repositories\InvoicesRepository.cs" />
     <Compile Include="Data\Repositories\MarcaRepository.cs" />
+    <Compile Include="Data\Repositories\MaterialRepository.cs" />
     <Compile Include="Data\Repositories\ProductDetailsRepository.cs" />
     <Compile Include="Data\Repositories\ProductsRepository.cs" />
     <Compile Include="Data\Repositories\TallaRepository.cs" />

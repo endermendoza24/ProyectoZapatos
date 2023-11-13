@@ -50,6 +50,8 @@ namespace WebApi
             services.AddScoped<ITallasRepository, TallasRepository>(); // Reemplaza TallasRepository con la implementación real de ITallasRepository
             services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<IColorService, ColorService>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
+            services.AddScoped<IMaterialService, MaterialService>();
 
             services.AddInfrastructureServices();
         }
