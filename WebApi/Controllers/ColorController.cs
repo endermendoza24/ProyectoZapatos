@@ -8,6 +8,7 @@ using System.Web.Http.Description;
 using System.Web.UI.WebControls;
 using Domain.Endpoint.DTOs;
 using Domain.Endpoint.Services;
+using System.Net;
 
 namespace WebApi.Controllers
 {
@@ -43,11 +44,14 @@ namespace WebApi.Controllers
             return Created(url, color);
         }
 
-        //[HttpPut]
-        //public async Task<IHttpActionResult> UpdateColor(Guid id, UpdateColorDTO colorDTO)
-        //{
-        //    Color color = await colorService.UpdateAsync(id, colorDTO);
-        //    return Ok(color);
-        //}
+
+        [HttpPut]
+        public async Task<IHttpActionResult> UpdateColor(Guid id, UpdateColorDTO colorDTO)
+        {
+            // Corrige el tipo del DTO a UpdateColorDTO
+            Color color = await colorService.UpdateAsync(id, colorDTO);
+            return Ok(color);
+        }
+
     }
 }

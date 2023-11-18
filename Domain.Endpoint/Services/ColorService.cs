@@ -19,16 +19,17 @@ namespace Domain.Endpoint.Services
         public async Task<Color> CreateAsync(CreateColorDTO colorDTO)
         {
             Color color = new Color
-            {                
-                ID_COLOR = colorDTO.ID_COLOR,                
-                NOMBRE_COLOR = colorDTO.NOMBRE_COLOR
+            {
+                //Id = Guid.NewGuid(),
+                ID_COLOR = colorDTO.ID_COLOR,
+                NOMBRE_COLOR = colorDTO.ID_COLOR
             };
             await colorRepository.CreateAsync(color);
 
             return color;
         }
 
-        //public Task<Color> CreateAsync(CreateTallasDto tallasDto)
+        //public Task<Marca> CreateAsync(CreateTallasDto tallasDto)
         //{
         //    throw new NotImplementedException();
         //}
@@ -64,12 +65,7 @@ namespace Domain.Endpoint.Services
             return color;
         }
 
-        public Task<Color> UpdateAsync(Guid id, UpdateMarcaDTO colorDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public Task<Color> UpdateAsync(Guid id, UpdateTallasDto tallasDto)
+        //public Task<Marca> UpdateAsync(Guid id, UpdateTallasDto tallasDto)
         //{
         //    throw new NotImplementedException();
         //}
