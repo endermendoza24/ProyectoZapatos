@@ -20,7 +20,7 @@ namespace Domain.Endpoint.Services
         {
             ToDo toDo = new ToDo
             {
-                Id = Guid.NewGuid(),
+                Id = 0,
                 Title = toDoDto.Title,
                 Description = toDoDto.Description,
                 Status = ToDoStatus.NotStarted,
@@ -32,7 +32,7 @@ namespace Domain.Endpoint.Services
             return toDo;
         }
 
-        public async Task<ToDo> DeleteAsync(Guid id)
+        public async Task<ToDo> DeleteAsync(int id)
         {
             ToDo toDo = await GetByIdAsync(id);
             await toDosRepository.DeleteAsync(toDo);
@@ -44,12 +44,12 @@ namespace Domain.Endpoint.Services
             return toDosRepository.GetAsync();
         }
 
-        public Task<ToDo> GetByIdAsync(Guid id)
+        public Task<ToDo> GetByIdAsync(int id)
         {
             return toDosRepository.GetByIdAsync(id);
         }
 
-        public async Task<ToDo> UpdateAsync(Guid id, UpdateToDoDto toDoDto)
+        public async Task<ToDo> UpdateAsync(int id, UpdateToDoDto toDoDto)
         {
             ToDo dbToDo = await GetByIdAsync(id);
 

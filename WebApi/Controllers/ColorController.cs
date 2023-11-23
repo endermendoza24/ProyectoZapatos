@@ -7,8 +7,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.UI.WebControls;
 using Domain.Endpoint.DTOs;
-using Domain.Endpoint.Services;
-using System.Net;
 
 namespace WebApi.Controllers
 {
@@ -29,7 +27,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetColorById(Guid id)
+        public async Task<IHttpActionResult> GetColorId(int id)
         {
             Color color = await colorService.GetByIdAsync(id);
             return Ok(color);
@@ -43,15 +41,14 @@ namespace WebApi.Controllers
             var url = Url.Content("~/") + "/api/color/" + color.Id;
             return Created(url, color);
         }
+        
 
-
+        //  preguntar por este y que tiene que ver con el GUID, o sea los id que se generan en la consulta de postman...
         [HttpPut]
         public async Task<IHttpActionResult> UpdateColor(Guid id, UpdateColorDTO colorDTO)
         {
-            // Corrige el tipo del DTO a UpdateColorDTO
             Color color = await colorService.UpdateAsync(id, colorDTO);
             return Ok(color);
         }
-
     }
 }

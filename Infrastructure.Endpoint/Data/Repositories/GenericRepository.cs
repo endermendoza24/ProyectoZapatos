@@ -27,7 +27,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
             return sqlDbConnection.ExecuteQueryCommandAsync(readCommand);
         }
 
-        public virtual Task<DataTable> GetDataTableByIdAsync(Guid id)
+        public virtual Task<DataTable> GetDataTableByIdAsync(int id)
         {
             SqlCommand readCommand = operationBuilder.Initialize<T>()
                 .WithOperation(SqlReadOperation.SelectById)

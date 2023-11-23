@@ -11,6 +11,6 @@ namespace Domain.Endpoint.Interfaces.Repositories
         Task DeleteAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task<List<TEntity>> GetAsync();
-        Task<TEntity> GetByIdAsync(Guid id);
+        Task<TEntity> GetByIdAsync(int id);
     }
 }

@@ -35,7 +35,7 @@ namespace Domain.Endpoint.Services
         //    throw new NotImplementedException();
         //}
 
-        public async Task<Tallas> DeleteAsync(Guid id)
+        public async Task<Tallas> DeleteAsync(int id)
         {
             Tallas talla = await GetByIdAsync(id);
             await tallasRepository.DeleteAsync(talla);
@@ -47,12 +47,12 @@ namespace Domain.Endpoint.Services
             return tallasRepository.GetAsync();
         }
 
-        public Task<Tallas> GetByIdAsync(Guid id)
+        public Task<Tallas> GetByIdAsync(int id)
         {
             return tallasRepository.GetByIdAsync(id);
         }
 
-        public async Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallaDto)
+        public async Task<Tallas> UpdateAsync(int id, UpdateTallasDto tallaDto)
         {
             Tallas dbTalla = await GetByIdAsync(id);
 

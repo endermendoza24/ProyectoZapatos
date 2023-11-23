@@ -9,10 +9,10 @@ namespace Domain.Endpoint.Interfaces.Services
     public interface IColorService
     {
         Task<List<Color>> GetAll();
-        Task<Color> GetByIdAsync(Guid id);
+        Task<Color> GetByIdAsync(int id);
         Task<Color> CreateAsync(CreateColorDTO colorDTO);
-        Task<Color> UpdateAsync(Guid id, UpdateColorDTO colorDTO);
-        Task<Color> DeleteAsync(Guid id);
+        Task<Color> UpdateAsync(int id, UpdateColorDTO colorDTO);
+        Task<Color> DeleteAsync(int id);
         //Task<Color> UpdateAsync(Guid id, UpdateTallasDto tallaDto);
         //Task<Color> UpdateAsync(Guid id, UpdateTallasDto colorDTO);
     }

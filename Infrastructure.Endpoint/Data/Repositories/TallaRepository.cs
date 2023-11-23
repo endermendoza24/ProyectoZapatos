@@ -22,7 +22,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .ToList();
         }
 
-        public async Task<Tallas> GetByIdAsync(Guid id)
+        public async Task<Tallas> GetByIdAsync(int id)
         {
             DataTable dataTable = await GetDataTableByIdAsync(id);
             return dataTable.AsEnumerable()

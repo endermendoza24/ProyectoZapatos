@@ -9,11 +9,11 @@ namespace Domain.Endpoint.Interfaces.Services
     public interface IMarcaService
     {
         Task<List<Marca>> GetAll();
-        Task<Marca> GetByIdAsync(Guid id);
+        //Task<Marca> GetByIdAsync(Guid id);
+        Task<Marca> GetByIdAsync(int id); // Cambiado de Guid a int
         Task<Marca> CreateAsync(CreateMarcaDTO marcaDTO);
-        Task<Marca> UpdateAsync(Guid id, UpdateMarcaDTO marcaDTO);
-        Task<Marca> DeleteAsync(Guid id);
-        //Task<Marca> UpdateAsync(Guid id, UpdateTallasDto tallaDto);
-        //Task<Marca> UpdateAsync(Guid id, UpdateTallasDto marcaDTO);
+        //Task<Marca> UpdateAsync(Guid id, UpdateMarcaDTO marcaDTO);
+        Task<Marca> UpdateAsync(int id, UpdateMarcaDTO marcaDTO);
+        //Task<Marca> DeleteAsync(Guid id);
     }
 }

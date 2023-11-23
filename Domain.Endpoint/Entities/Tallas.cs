@@ -1,11 +1,13 @@
 ﻿using Domain.Endpoint.Entities;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Endpoint.Entities
 {
     public class Tallas : BaseEntity
     {
-        public string ID_TALLA { get; set; }
+        [Key]
+        public int ID_TALLA { get; set; }
         public string Num_Talla { get; set; }
     }
 }

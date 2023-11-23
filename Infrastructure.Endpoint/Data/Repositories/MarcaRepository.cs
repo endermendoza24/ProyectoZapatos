@@ -22,7 +22,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .ToList();
         }
 
-        public async Task<Marca> GetByIdAsync(Guid id)
+        public async Task<Marca> GetByIdAsync(int id)
         {
             DataTable dataTable = await GetDataTableByIdAsync(id);
             return dataTable.AsEnumerable()
@@ -34,7 +34,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
         {
             Marca marca = new Marca
             {
-                ID_MARCA = sqlDbConnection.GetDataRowValue<string>(row, "ID_MARCA"),
+                ID_MARCA = sqlDbConnection.GetDataRowValue<int>(row, "ID_MARCA"),
                 estado = sqlDbConnection.GetDataRowValue<bool>(row, "estado"),
                 NOMBRE_MARCA = sqlDbConnection.GetDataRowValue<string>(row, "NOMBRE_MARCA"),
                 // Agrega más propiedades de la entidad Marca y mapea los valores desde el DataRow si es necesario.

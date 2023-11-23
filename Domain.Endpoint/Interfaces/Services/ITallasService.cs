@@ -10,10 +10,10 @@ namespace Domain.Endpoint.Interfaces.Services
     public interface ITallasService
     {
         Task<List<Tallas>> GetAll();
-        Task<Tallas> GetByIdAsync(Guid id);
+        Task<Tallas> GetByIdAsync(int id);
         Task<Tallas> CreateAsync(CreateTallasDto tallasDto);
-        Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallasDto);
-        Task<Tallas> DeleteAsync(Guid id);
+        Task<Tallas> UpdateAsync(int id, UpdateTallasDto tallasDto);
+        Task<Tallas> DeleteAsync(int id);
         //Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallaDto);
         //Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallasDto);
     }

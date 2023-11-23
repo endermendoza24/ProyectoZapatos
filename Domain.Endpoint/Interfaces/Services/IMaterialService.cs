@@ -10,10 +10,10 @@ namespace Domain.Endpoint.Interfaces.Services
     public interface IMaterialService
     {
         Task<List<Material>> GetAll();
-        Task<Material> GetByIdAsync(Guid id);
+        Task<Material> GetByIdAsync(int id);
         Task<Material> CreateAsync(CreateMaterialDTO materialDTO);
-        Task<Material> UpdateAsync(Guid id, UpdateMaterialDTO materialDTO);
-        Task<Material> DeleteAsync(Guid id);
+        Task<Material> UpdateAsync(int id, UpdateMaterialDTO materialDTO);
+        Task<Material> DeleteAsync(int id);
         //Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallaDto);
         //Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallasDto);
     }

@@ -54,7 +54,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         private SqlWriteOperation writeOperation;
         private SqlReadOperation readOperation;
         private readonly IEntitiesService entityService;
-        private Guid id;
+        private int id;
 
         public SqlCommandOperationBuilder(TEntity entity, IEntitiesService entityService)
         {
@@ -79,7 +79,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             return this;
         }
 
-        public IExecuteReadBuilder WithId(Guid id)
+        public IExecuteReadBuilder WithId(int id)  // Cambié el tipo de parámetro de Guid a int
         {
             this.id = id;
             return this;
@@ -149,28 +149,59 @@ namespace Infrastructure.Endpoint.Data.Builders
             return command;
         }
 
+        //private SqlCommand GetSelectByIdCommand()
+        //{
+        //    SqlEntitySettings entitySettings = entityService.GetSettings<TEntity>();
+        //    SqlColumnSettings primaryKey = entitySettings.Columns.Where(column => column.IsPrimaryKey).FirstOrDefault();
+        //    if (primaryKey is null) throw new Exception("No Primary Key Found");
+
+        //    string tableName = entitySettings.NormalizedTableName;
+        //    string sqlQuery = $"SELECT * FROM {tableName} WHERE {primaryKey.Name} = {primaryKey.ParameterName};";
+        //    SqlCommand command = new SqlCommand(sqlQuery);
+        //    command.CommandType = CommandType.Text;
+
+        //    SqlParameter sqlParameter = new SqlParameter()
+        //    {
+        //        SqlDbType = SqlDbType.UniqueIdentifier,
+        //        Direction = ParameterDirection.Input,
+        //        ParameterName = primaryKey.ParameterName,
+        //        Value = id,
+        //    };
+
+        //    command.Parameters.Add(sqlParameter);
+        //    return command;
+        //}
+
+        // chatgpt
         private SqlCommand GetSelectByIdCommand()
         {
             SqlEntitySettings entitySettings = entityService.GetSettings<TEntity>();
-            SqlColumnSettings primaryKey = entitySettings.Columns.Where(column => column.IsPrimaryKey).FirstOrDefault();
-            if (primaryKey is null) throw new Exception("No Primary Key Found");
-
             string tableName = entitySettings.NormalizedTableName;
-            string sqlQuery = $"SELECT * FROM {tableName} WHERE {primaryKey.Name} = {primaryKey.ParameterName};";
+            string sqlQuery = $"SELECT * FROM {tableName} WHERE ID_MARCA = @ID_MARCA;";
             SqlCommand command = new SqlCommand(sqlQuery);
             command.CommandType = CommandType.Text;
 
             SqlParameter sqlParameter = new SqlParameter()
             {
-                SqlDbType = SqlDbType.UniqueIdentifier,
+                SqlDbType = SqlDbType.Int, // O el tipo de datos correcto para ID_MARCA
                 Direction = ParameterDirection.Input,
-                ParameterName = primaryKey.ParameterName,
+                ParameterName = "@ID_MARCA",
                 Value = id,
             };
 
             command.Parameters.Add(sqlParameter);
             return command;
         }
+
+
+        private SqlColumnSettings GetPrimaryKeyColumn(SqlEntitySettings entitySettings)
+        {
+            return entitySettings.Columns.FirstOrDefault(column => column.IsPrimaryKey);
+        }
+
+
+
+
 
         private List<SqlParameter> GetSqlParameters(TEntity entitty, List<SqlColumnSettings> columns)
         {
@@ -209,7 +240,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             object value = property.GetValue(entity);
             if (value is null)
             {
-                return column.IsNullable ? DBNull.Value : Activator.CreateInstance(property.PropertyType);
+                return DBNull.Value;  // Utilizar DBNull.Value para representar NULL en la base de datos
             }
 
             return value;

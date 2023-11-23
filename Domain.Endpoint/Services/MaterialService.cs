@@ -37,7 +37,7 @@ namespace Domain.Endpoint.Services
         //    throw new NotImplementedException();
         //}
 
-        public async Task<Material> DeleteAsync(Guid id)
+        public async Task<Material> DeleteAsync(int id)
         {
             Material material = await GetByIdAsync(id);
             await materialRepository.DeleteAsync(material);
@@ -49,12 +49,12 @@ namespace Domain.Endpoint.Services
             return materialRepository.GetAsync();
         }
 
-        public Task<Material> GetByIdAsync(Guid id)
+        public Task<Material> GetByIdAsync(int id)
         {
             return materialRepository.GetByIdAsync(id);
         }
 
-        public async Task<Material> UpdateAsync(Guid id, UpdateMaterialDTO materialDTO)
+        public async Task<Material> UpdateAsync(int id, UpdateMaterialDTO materialDTO)
         {
             Material dbMaterial = await GetByIdAsync(id);
 

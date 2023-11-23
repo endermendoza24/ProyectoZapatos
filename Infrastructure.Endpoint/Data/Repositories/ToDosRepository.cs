@@ -22,7 +22,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .ToList();
         }
         
-        public async Task<ToDo> GetByIdAsync(Guid id)
+        public async Task<ToDo> GetByIdAsync(int id)
         {
             DataTable dataTable = await GetDataTableByIdAsync(id);
             return dataTable.AsEnumerable()
@@ -34,7 +34,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
         {
             ToDo toDo = new ToDo
             {
-                Id = sqlDbConnection.GetDataRowValue<Guid>(row, "Id"),
+                Id = sqlDbConnection.GetDataRowValue<int>(row, "Id"),
                 Title = sqlDbConnection.GetDataRowValue<string>(row, "Title"),
                 Description = sqlDbConnection.GetDataRowValue<string>(row, "Description"),
                 Done = sqlDbConnection.GetDataRowValue<bool>(row, "Done"),

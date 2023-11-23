@@ -1,12 +1,11 @@
-﻿using Domain.Endpoint.Entities;
+﻿using Domain.Endpoint.DTOs;
+using Domain.Endpoint.Entities;
 using Domain.Endpoint.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.UI.WebControls;
-using Domain.Endpoint.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -27,26 +26,26 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetMarcaById(Guid id)
+        public async Task<IHttpActionResult> GetMarcaById(int idMarca)
         {
-            Marca talla = await marcaService.GetByIdAsync(id);
-            return Ok(talla);
+            Marca marca = await marcaService.GetByIdAsync(idMarca);
+            return Ok(marca);
         }
 
         [HttpPost]
         [ResponseType(typeof(Marca))]
-        public async Task<IHttpActionResult> CreateMarc(CreateMarcaDTO marcaDto)
+        public async Task<IHttpActionResult> CreateMarca(CreateMarcaDTO marcaDto)
         {
-            Marca talla = await marcaService.CreateAsync(marcaDto);
-            var url = Url.Content("~/") + "/api/marcas/" + talla.Id;
-            return Created(url, talla);
+            Marca marca = await marcaService.CreateAsync(marcaDto);
+            var url = Url.Content("~/") + "/api/marcas/" + marca.ID_MARCA;
+            return Created(url, marca);
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateTalla(Guid id, UpdateMarcaDTO tallaDto)
+        public async Task<IHttpActionResult> UpdateTalla(int idMarca, UpdateMarcaDTO marcaDto)
         {
-            Marca talla = await marcaService.UpdateAsync(id, tallaDto);
-            return Ok(talla);
+            Marca marca = await marcaService.UpdateAsync(idMarca, marcaDto);
+            return Ok(marca);
         }
     }
 }

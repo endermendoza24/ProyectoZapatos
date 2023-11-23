@@ -9,9 +9,9 @@ namespace Domain.Endpoint.Interfaces.Services
     public interface IToDosService
     {
         Task<List<ToDo>> GetAll();
-        Task<ToDo> GetByIdAsync(Guid id);
+        Task<ToDo> GetByIdAsync(int id);
         Task<ToDo> CreateAsync(CreateToDoDto toDo);
-        Task<ToDo> UpdateAsync(Guid id, UpdateToDoDto toDo);
-        Task<ToDo> DeleteAsync(Guid id);
+        Task<ToDo> UpdateAsync(int id, UpdateToDoDto toDo);
+        Task<ToDo> DeleteAsync(int id);
     }
 }

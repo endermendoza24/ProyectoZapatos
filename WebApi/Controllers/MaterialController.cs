@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetMaterialById(Guid id)
+        public async Task<IHttpActionResult> GetMaterialById(int id)
         {
             Material material = await materialService.GetByIdAsync(id);
             return Ok(material);
@@ -44,7 +44,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateTalla(Guid id, UpdateMaterialDTO materialDTO)
+        public async Task<IHttpActionResult> UpdateTalla(int id, UpdateMaterialDTO materialDTO)
         {
             Material material = await materialService.UpdateAsync(id, materialDTO);
             return Ok(material);
