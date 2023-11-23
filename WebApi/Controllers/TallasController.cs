@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetTallaById(Guid id)
+        public async Task<IHttpActionResult> GetTallaById(int id)
         {
             Tallas talla = await tallasService.GetByIdAsync(id);
             return Ok(talla);
@@ -43,7 +43,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateTalla(Guid id, UpdateTallasDto tallaDto)
+        public async Task<IHttpActionResult> UpdateTalla(int id, UpdateTallasDto tallaDto)
         {
             Tallas talla = await tallasService.UpdateAsync(id, tallaDto);
             return Ok(talla);

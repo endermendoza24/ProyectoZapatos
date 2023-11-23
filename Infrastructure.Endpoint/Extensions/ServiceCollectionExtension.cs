@@ -12,7 +12,7 @@ namespace Infrastructure.Endpoint.Extensions
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            services.AddScoped<IToDosRepository, ToDosRepository>();
+            //services.AddScoped<IToDosRepository, ToDosRepository>();
             services.AddScoped<ITallasRepository, TallasRepository>();
             services.AddScoped<IMarcaRepository, MarcaRepository>(); // repo de marca
             services.AddTransient<ISqlEntitySettingsBuilder, SqlEntitySettingsBuilder>();

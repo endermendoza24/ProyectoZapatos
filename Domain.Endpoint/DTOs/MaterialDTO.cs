@@ -8,7 +8,7 @@ namespace Domain.Endpoint.DTOs
 {
     public class CreateMaterialDTO
     {
-        public string ID_MATERIAL { get; set; }
+        public int ID_MATERIAL { get; set; }
         public bool estado { get; set; }
         public string detalles_material { get; set; }
         public string NOMBRE_MATERIAL { get; set; }
@@ -16,7 +16,7 @@ namespace Domain.Endpoint.DTOs
 
     public class UpdateMaterialDTO
     {
-        public string ID_MATERIAL { get; set; }
+        public int ID_MATERIAL { get; set; }
         public bool estado { get; set; }
         public string detalles_material { get; set; }
         public string NOMBRE_MATERIAL { get; set; }

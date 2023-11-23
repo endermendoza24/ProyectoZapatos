@@ -8,7 +8,7 @@ namespace Domain.Endpoint.DTOs
 {
     public class ColorResponseDTO
     {
-        public string ID_COLOR { get; set; }
+        public int ID_COLOR { get; set; }
         public string NOMBRE_COLOR { get; set; }
     }
 }

@@ -30,12 +30,12 @@ namespace Domain.Endpoint.Services
             return marca;
         }
 
-        //public async Task<Marca> DeleteAsync(int id) // Cambiado de Guid a int
-        //{
-        //    Marca marca = await GetByIdAsync(id);
-        //    await marcaRepository.DeleteAsync(marca);
-        //    return marca;
-        //}
+        public async Task<Marca> DeleteAsync(int id) // Cambiado de Guid a int
+        {
+            Marca marca = await GetByIdAsync(id);
+            await marcaRepository.DeleteAsync(marca);
+            return marca;
+        }
 
         public Task<List<Marca>> GetAll()
         {
@@ -47,17 +47,40 @@ namespace Domain.Endpoint.Services
             return marcaRepository.GetByIdAsync(id);
         }
 
-        public async Task<Marca> UpdateAsync(int id, UpdateMarcaDTO marcaDTO) // Cambiado de Guid a int
+        //public async Task<Marca> UpdateAsync(int id, UpdateMarcaDTO marcaDTO) // Cambiado de Guid a int
+        //{
+        //    Marca dbMarca = await GetByIdAsync(id);
+
+        //    Marca marca = new Marca
+        //    {
+        //        NOMBRE_MARCA = marcaDTO.NOMBRE_MARCA
+        //    };
+
+        //    await marcaRepository.UpdateAsync(marca);
+        //    return marca;
+        //}
+
+        public async Task<Marca> UpdateAsync(int id, UpdateMarcaDTO marcaDTO)
         {
+            // Get the existing Marca from the repository
             Marca dbMarca = await GetByIdAsync(id);
 
-            Marca marca = new Marca
+            // Check if the Marca exists
+            if (dbMarca == null)
             {
-                NOMBRE_MARCA = marcaDTO.NOMBRE_MARCA
-            };
+                // Handle the case where the Marca with the given id is not found
+                throw new InvalidOperationException($"Marca with ID {id} not found.");
+            }
 
-            await marcaRepository.UpdateAsync(marca);
-            return marca;
+            // Update the properties of the existing Marca with the values from DTO
+            dbMarca.NOMBRE_MARCA = marcaDTO.NOMBRE_MARCA;
+
+            // Call the repository to update the Marca
+            await marcaRepository.UpdateAsync(dbMarca);
+
+            // Return the updated Marca
+            return dbMarca;
         }
+
     }
 }

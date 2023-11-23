@@ -176,22 +176,30 @@ namespace Infrastructure.Endpoint.Data.Builders
         private SqlCommand GetSelectByIdCommand()
         {
             SqlEntitySettings entitySettings = entityService.GetSettings<TEntity>();
+            SqlColumnSettings primaryKey = GetPrimaryKeyColumn(entitySettings);
+
+            if (primaryKey is null)
+                throw new Exception("No se encontró una clave primaria");
+
             string tableName = entitySettings.NormalizedTableName;
-            string sqlQuery = $"SELECT * FROM {tableName} WHERE ID_MARCA = @ID_MARCA;";
+            string sqlQuery = $"SELECT * FROM {tableName} WHERE {primaryKey.Name} = @{primaryKey.ParameterName};";
             SqlCommand command = new SqlCommand(sqlQuery);
             command.CommandType = CommandType.Text;
 
             SqlParameter sqlParameter = new SqlParameter()
             {
-                SqlDbType = SqlDbType.Int, // O el tipo de datos correcto para ID_MARCA
+                SqlDbType = primaryKey.SqlDbType,
                 Direction = ParameterDirection.Input,
-                ParameterName = "@ID_MARCA",
+                ParameterName = $"@{primaryKey.ParameterName}",
                 Value = id,
             };
 
             command.Parameters.Add(sqlParameter);
             return command;
         }
+
+
+
 
 
         private SqlColumnSettings GetPrimaryKeyColumn(SqlEntitySettings entitySettings)
@@ -266,30 +274,63 @@ namespace Infrastructure.Endpoint.Data.Builders
             return builder.ToString();
         }
 
+        //private string GetUpdateQuery(string entityName, List<SqlColumnSettings> columnSettings)
+        //{
+        //    StringBuilder builder = new StringBuilder();
+        //    builder.Append($"UPDATE {entityName} SET ");
+
+        //    int lastIndex = columnSettings.Count - 1;
+        //    //int index = 0;
+        //    SqlColumnSettings primaryKey = columnSettings.Where(column => column.IsPrimaryKey).FirstOrDefault();
+        //    if (primaryKey is null) throw new Exception("No Primary Key Found");
+
+        //    foreach (var data in columnSettings.Select((columnSetting, index) => (columnSetting, index)))
+        //    {
+        //        SqlColumnSettings columnSetting = data.columnSetting;
+        //        if (columnSetting.IsPrimaryKey) continue;
+        //        if (columnSetting.IsComputedColumn) continue;
+
+        //        builder.Append($"{columnSetting.Name} = {columnSetting.ParameterName}");
+        //        builder.Append(lastIndex.Equals(data.index) ? " " : ",");
+        //        //index++;
+        //    }
+
+        //    builder.Append($"WHERE {primaryKey.Name} = {primaryKey.ParameterName};");
+        //    return builder.ToString();
+        //}
+
         private string GetUpdateQuery(string entityName, List<SqlColumnSettings> columnSettings)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append($"UPDATE {entityName} SET ");
 
             int lastIndex = columnSettings.Count - 1;
-            //int index = 0;
-            SqlColumnSettings primaryKey = columnSettings.Where(column => column.IsPrimaryKey).FirstOrDefault();
-            if (primaryKey is null) throw new Exception("No Primary Key Found");
+
+            // Buscar la columna de la clave primaria
+            SqlColumnSettings primaryKey = columnSettings.FirstOrDefault(column => column.IsPrimaryKey);
+            if (primaryKey is null)
+            {
+                throw new Exception("No Primary Key Found");
+            }
 
             foreach (var data in columnSettings.Select((columnSetting, index) => (columnSetting, index)))
             {
                 SqlColumnSettings columnSetting = data.columnSetting;
-                if (columnSetting.IsPrimaryKey) continue;
-                if (columnSetting.IsComputedColumn) continue;
+                if (columnSetting.IsComputedColumn || columnSetting.IsPrimaryKey)
+                {
+                    continue;
+                }
 
                 builder.Append($"{columnSetting.Name} = {columnSetting.ParameterName}");
                 builder.Append(lastIndex.Equals(data.index) ? " " : ",");
-                //index++;
             }
 
+            // Agregar la cláusula WHERE con la clave primaria
             builder.Append($"WHERE {primaryKey.Name} = {primaryKey.ParameterName};");
             return builder.ToString();
         }
+
+
 
         private string GetDeleteQuery(string entityName, List<SqlColumnSettings> columnSettings)
         {

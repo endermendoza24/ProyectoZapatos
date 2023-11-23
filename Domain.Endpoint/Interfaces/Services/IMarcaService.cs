@@ -14,6 +14,6 @@ namespace Domain.Endpoint.Interfaces.Services
         Task<Marca> CreateAsync(CreateMarcaDTO marcaDTO);
         //Task<Marca> UpdateAsync(Guid id, UpdateMarcaDTO marcaDTO);
         Task<Marca> UpdateAsync(int id, UpdateMarcaDTO marcaDTO);
-        //Task<Marca> DeleteAsync(Guid id);
+        Task<Marca> DeleteAsync(int id);
     }
 }

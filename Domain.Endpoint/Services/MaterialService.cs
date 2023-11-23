@@ -68,10 +68,5 @@ namespace Domain.Endpoint.Services
             await materialRepository.UpdateAsync(material);
             return material;
         }
-
-        //public Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallasDto)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

@@ -4,6 +4,7 @@ using Infrastructure.Endpoint.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Infrastructure.Endpoint.Data.Services
 {
@@ -29,18 +30,23 @@ namespace Infrastructure.Endpoint.Data.Services
 
         private void BuildEntities()
         {
-           
-            SqlEntitySettings tallasSettings = BuildTallasSettings(); // Agrega esta línea
+            SqlEntitySettings tallasSettings = BuildTallasSettings();
             SqlEntitySettings marcaSettings = BuildMarcaSettings();
             SqlEntitySettings colorSettings = BuildColorSettings();
             SqlEntitySettings materialSettings = BuildMaterialSettings();
 
-          
-            entities.Add(typeof(Tallas), tallasSettings); // Agrega esta línea
+            entities.Add(typeof(Tallas), tallasSettings);
             entities.Add(typeof(Marca), marcaSettings);
             entities.Add(typeof(Color), colorSettings);
             entities.Add(typeof(Material), materialSettings);
+
+            // Imprimir el diccionario después de construirlo
+            foreach (var entity in entities)
+            {
+                Console.WriteLine($"Entity: {entity.Key.Name}, Primary Key: {entity.Value.Columns.FirstOrDefault(c => c.IsPrimaryKey)?.Name}");
+            }
         }
+
 
         private SqlEntitySettings BuildTallasSettings()
         {
@@ -119,7 +125,8 @@ namespace Infrastructure.Endpoint.Data.Services
 
                 entity.Property(property => property.ID_MARCA)
                     .SetDefaultName("ID_MARCA") // Nombre de la columna en la base de datos para ID_TALLA
-                    .WithSqlDbType(SqlDbType.VarChar) // Tipo de datos en la base de datos
+                    .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
+                    .AsPrimaryKey()  // Asegúrate de marcar la columna como clave primaria
                     .AddProperty();
 
                 entity.Property(property => property.estado)

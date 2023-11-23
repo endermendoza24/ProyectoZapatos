@@ -22,7 +22,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .ToList();
         }
 
-        public async Task<Material> GetByIdAsync(Guid id)
+        public async Task<Material> GetByIdAsync(int id)
         {
             DataTable dataTable = await GetDataTableByIdAsync(id);
             return dataTable.AsEnumerable()
@@ -34,7 +34,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
         {
             Material material = new Material
             {
-                ID_MATERIAL = sqlDbConnection.GetDataRowValue<string>(row, "ID_MATERIAL"),
+                ID_MATERIAL = sqlDbConnection.GetDataRowValue<int>(row, "ID_MATERIAL"),
                 estado = sqlDbConnection.GetDataRowValue<bool>(row, "estado"),
                 detalles_material = sqlDbConnection.GetDataRowValue<string>(row, "detalles_material"),
                 NOMBRE_MATERIAL = sqlDbConnection.GetDataRowValue<string>(row, "NOMBRE_MATERIAL")

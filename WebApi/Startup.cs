@@ -45,7 +45,7 @@ namespace WebApi
                     .Where(t => typeof(IHttpController).IsAssignableFrom(t) || t.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase))
             );
 
-            services.AddScoped<IToDosService, ToDosService>();
+            //services.AddScoped<IToDosService, ToDosService>();
             services.AddScoped<ITallasService, TallasService>(); // Asegúrate de que TallasService implemente ITallasService
             services.AddScoped<ITallasRepository, TallasRepository>(); // Reemplaza TallasRepository con la implementación real de ITallasRepository
             services.AddScoped<IColorRepository, ColorRepository>();

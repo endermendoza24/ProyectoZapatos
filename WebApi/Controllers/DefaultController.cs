@@ -23,10 +23,7 @@ namespace WebApi.Controllers
         }
 
         // POST: api/Default
-        public void Post(CreateToDoDto toDoDto)
-        {
-        }
-
+       
         // PUT: api/Default/5
         public void Put(int id, [FromBody]string value)
         {

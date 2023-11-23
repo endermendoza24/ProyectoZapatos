@@ -22,7 +22,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
                 .ToList();
         }
 
-        public async Task<Color> GetByIdAsync(Guid id)
+        public async Task<Color> GetByIdAsync(int id)
         {
             DataTable dataTable = await GetDataTableByIdAsync(id);
             return dataTable.AsEnumerable()
@@ -34,7 +34,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
         {
             Color color = new Color
             {
-                ID_COLOR = sqlDbConnection.GetDataRowValue<string>(row, "ID_COLOR"),
+                ID_COLOR = sqlDbConnection.GetDataRowValue<int>(row, "ID_COLOR"),
                 NOMBRE_COLOR = sqlDbConnection.GetDataRowValue<string>(row, "NOMBRE_COLOR")
                 // Elimina cualquier referencia al campo 'Id'
             };

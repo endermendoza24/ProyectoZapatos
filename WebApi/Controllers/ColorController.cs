@@ -45,7 +45,7 @@ namespace WebApi.Controllers
 
         //  preguntar por este y que tiene que ver con el GUID, o sea los id que se generan en la consulta de postman...
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateColor(Guid id, UpdateColorDTO colorDTO)
+        public async Task<IHttpActionResult> UpdateColor(int id, UpdateColorDTO colorDTO)
         {
             Color color = await colorService.UpdateAsync(id, colorDTO);
             return Ok(color);

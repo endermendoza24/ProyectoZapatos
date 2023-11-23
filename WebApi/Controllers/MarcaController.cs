@@ -25,12 +25,24 @@ namespace WebApi.Controllers
             return Ok(marcas);
         }
 
+        //[HttpGet]
+        //public async Task<IHttpActionResult> GetMarcaById(int idMarca)
+        //{
+        //    Marca marca = await marcaService.GetByIdAsync(idMarca);
+        //    return Ok(marca);
+        //}
+
         [HttpGet]
+        [Route("api/Marca/{idMarca}")]
         public async Task<IHttpActionResult> GetMarcaById(int idMarca)
         {
             Marca marca = await marcaService.GetByIdAsync(idMarca);
             return Ok(marca);
         }
+
+
+
+
 
         [HttpPost]
         [ResponseType(typeof(Marca))]
@@ -41,11 +53,37 @@ namespace WebApi.Controllers
             return Created(url, marca);
         }
 
+        //[HttpPut]
+        //public async Task<IHttpActionResult> UpdateTalla(int idMarca, UpdateMarcaDTO marcaDto)
+        //{
+        //    Marca marca = await marcaService.UpdateAsync(idMarca, marcaDto);
+        //    return Ok(marca);
+        //}
+
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateTalla(int idMarca, UpdateMarcaDTO marcaDto)
+        [Route("api/Marca/{idMarca}")]
+        public async Task<IHttpActionResult> UpdateMarca(int idMarca, UpdateMarcaDTO marcaDto)
         {
             Marca marca = await marcaService.UpdateAsync(idMarca, marcaDto);
             return Ok(marca);
         }
+
+        [HttpDelete]
+        [Route("api/Marca/{idMarca}")]
+        public async Task<IHttpActionResult> DeleteMarca(int idMarca)
+        {
+            try
+            {
+                await marcaService.DeleteAsync(idMarca);
+                return Ok($"Marca con ID {idMarca} eliminada correctamente.");
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores según sea necesario
+                return InternalServerError(ex);
+            }
+        }
+
+
     }
 }
