@@ -3,6 +3,7 @@ using Domain.Endpoint.Entities;
 using Domain.Endpoint.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -24,14 +25,7 @@ namespace WebApi.Controllers
             List<Marca> marcas = await marcaService.GetAll();
             return Ok(marcas);
         }
-
-        //[HttpGet]
-        //public async Task<IHttpActionResult> GetMarcaById(int idMarca)
-        //{
-        //    Marca marca = await marcaService.GetByIdAsync(idMarca);
-        //    return Ok(marca);
-        //}
-
+       
         [HttpGet]
         [Route("api/Marca/{idMarca}")]
         public async Task<IHttpActionResult> GetMarcaById(int idMarca)
@@ -40,10 +34,6 @@ namespace WebApi.Controllers
             return Ok(marca);
         }
 
-
-
-
-
         [HttpPost]
         [ResponseType(typeof(Marca))]
         public async Task<IHttpActionResult> CreateMarca(CreateMarcaDTO marcaDto)
@@ -51,14 +41,7 @@ namespace WebApi.Controllers
             Marca marca = await marcaService.CreateAsync(marcaDto);
             var url = Url.Content("~/") + "/api/marcas/" + marca.ID_MARCA;
             return Created(url, marca);
-        }
-
-        //[HttpPut]
-        //public async Task<IHttpActionResult> UpdateTalla(int idMarca, UpdateMarcaDTO marcaDto)
-        //{
-        //    Marca marca = await marcaService.UpdateAsync(idMarca, marcaDto);
-        //    return Ok(marca);
-        //}
+        }       
 
         [HttpPut]
         [Route("api/Marca/{idMarca}")]
@@ -75,15 +58,19 @@ namespace WebApi.Controllers
             try
             {
                 await marcaService.DeleteAsync(idMarca);
-                return Ok($"Marca con ID {idMarca} eliminada correctamente.");
+                return Ok($"Marca with ID {idMarca} deleted successfully.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Devuelve una respuesta HTTP 404 con un mensaje personalizado
+                return Content(HttpStatusCode.NotFound, ex.Message);
             }
             catch (Exception ex)
             {
-                // Manejar errores según sea necesario
+                // Log the exception or handle it as needed
                 return InternalServerError(ex);
             }
         }
-
 
     }
 }

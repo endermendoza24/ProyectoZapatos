@@ -30,12 +30,30 @@ namespace Domain.Endpoint.Services
             return marca;
         }
 
-        public async Task<Marca> DeleteAsync(int id) // Cambiado de Guid a int
+        //public async Task<Marca> DeleteAsync(int id) // Cambiado de Guid a int
+        //{
+        //    Marca marca = await GetByIdAsync(id);
+        //    await marcaRepository.DeleteAsync(marca);
+        //    return marca;
+        //}
+
+        public async Task DeleteAsync(int id)
         {
-            Marca marca = await GetByIdAsync(id);
-            await marcaRepository.DeleteAsync(marca);
-            return marca;
+            // Get the existing Marca from the repository
+            Marca dbMarca = await GetByIdAsync(id);
+
+            // Check if the Marca exists
+            if (dbMarca == null)
+            {
+                // Handle the case where the Marca with the given id is not found
+                throw new InvalidOperationException($"Marca with ID {id} not found.");
+            }
+
+            // Call the repository to delete the Marca
+            await marcaRepository.DeleteAsync(dbMarca);
         }
+
+
 
         public Task<List<Marca>> GetAll()
         {
