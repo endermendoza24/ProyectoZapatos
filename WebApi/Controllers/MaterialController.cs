@@ -1,13 +1,12 @@
-﻿using Domain.Talla.DTOs;
+﻿using Domain.Endpoint.DTOs;
 using Domain.Endpoint.Entities;
 using Domain.Endpoint.Interfaces.Services;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.UI.WebControls;
-using Domain.Endpoint.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -28,9 +27,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetMaterialById(int id)
+        [Route("api/Material/{idMaterial}")]
+        public async Task<IHttpActionResult> GetMaterialById(int idMaterial)
         {
-            Material material = await materialService.GetByIdAsync(id);
+            Material material = await materialService.GetByIdAsync(idMaterial);
             return Ok(material);
         }
 
@@ -39,15 +39,38 @@ namespace WebApi.Controllers
         public async Task<IHttpActionResult> CreateMaterial(CreateMaterialDTO materialDTO)
         {
             Material material = await materialService.CreateAsync(materialDTO);
-            var url = Url.Content("~/") + "/api/material/" + material.Id;
+            var url = Url.Content("~/") + "/api/material/" + material.ID_MATERIAL;
             return Created(url, material);
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateTalla(int id, UpdateMaterialDTO materialDTO)
+        [Route("api/Material/{idMaterial}")]
+        public async Task<IHttpActionResult> UpdateMaterial(int idMaterial, UpdateMaterialDTO materialDTO)
         {
-            Material material = await materialService.UpdateAsync(id, materialDTO);
+            Material material = await materialService.UpdateAsync(idMaterial, materialDTO);
             return Ok(material);
         }
+
+        [HttpDelete]
+        [Route("api/Material/{idMaterial}")]
+        public async Task<IHttpActionResult> DeleteMaterial(int idMaterial)
+        {
+            try
+            {
+                await materialService.DeleteAsync(idMaterial);
+                return Ok($"Marca with ID {idMaterial} deleted successfully.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Devuelve una respuesta HTTP 404 con un mensaje personalizado
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return InternalServerError(ex);
+            }
+        }
+
     }
 }

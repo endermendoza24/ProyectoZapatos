@@ -143,7 +143,7 @@ namespace Infrastructure.Endpoint.Data.Builders
         {
             SqlEntitySettings entitySettings = entityService.GetSettings<TEntity>();
             string tableName = entitySettings.NormalizedTableName;
-            string sqlQuery = $"SELECT * FROM {tableName};";
+            string sqlQuery = $" SELECT * FROM {tableName};";
             SqlCommand command = new SqlCommand(sqlQuery);
             command.CommandType = CommandType.Text;
             return command;
@@ -158,7 +158,7 @@ namespace Infrastructure.Endpoint.Data.Builders
                 throw new Exception("No se encontró una clave primaria");
 
             string tableName = entitySettings.NormalizedTableName;
-            string sqlQuery = $"SELECT * FROM {tableName} WHERE {primaryKey.Name} = @{primaryKey.ParameterName};";
+            string sqlQuery = $" SELECT * FROM {tableName} WHERE {primaryKey.Name} = @{primaryKey.ParameterName};";
             SqlCommand command = new SqlCommand(sqlQuery);
             command.CommandType = CommandType.Text;
 
@@ -265,16 +265,17 @@ namespace Infrastructure.Endpoint.Data.Builders
                     continue;
                 }
 
-                builder.Append($"{columnSetting.Name} = {columnSetting.ParameterName}");
+                //builder.Append($" {columnSetting.Name} = {columnSetting.ParameterName} ");
+                builder.Append($" {columnSetting.Name} = {columnSetting.ParameterName}");
+
                 builder.Append(lastIndex.Equals(data.index) ? " " : ",");
             }
 
             // Agregar la cláusula WHERE con la clave primaria
-            builder.Append($"WHERE {primaryKey.Name} = {primaryKey.ParameterName};");
+            builder.Append($" WHERE {primaryKey.Name} = {primaryKey.ParameterName};");            
+
             return builder.ToString();
         }
-
-
 
         private string GetDeleteQuery(string entityName, List<SqlColumnSettings> columnSettings)
         {
@@ -282,7 +283,7 @@ namespace Infrastructure.Endpoint.Data.Builders
             SqlColumnSettings primaryKey = columnSettings.Where(column => column.IsPrimaryKey).FirstOrDefault();
             if (primaryKey is null) throw new Exception("No Primary Key Found");
 
-            return builder.Append("DELETE FROM ")
+            return builder.Append(" DELETE FROM ")
                 .Append(entityName)
                 .Append(" WHERE ")
                 .Append(primaryKey.Name)

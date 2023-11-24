@@ -30,13 +30,6 @@ namespace Domain.Endpoint.Services
             return marca;
         }
 
-        //public async Task<Marca> DeleteAsync(int id) // Cambiado de Guid a int
-        //{
-        //    Marca marca = await GetByIdAsync(id);
-        //    await marcaRepository.DeleteAsync(marca);
-        //    return marca;
-        //}
-
         public async Task DeleteAsync(int id)
         {
             // Get the existing Marca from the repository

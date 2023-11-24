@@ -54,19 +54,51 @@ namespace Domain.Endpoint.Services
             return materialRepository.GetByIdAsync(id);
         }
 
+        //public async Task<Material> UpdateAsync(int id, UpdateMaterialDTO materialDTO)
+        //{
+        //    Material dbMaterial = await GetByIdAsync(id);
+
+        //    Material material = new Material
+        //    {                
+        //        estado = materialDTO.estado,
+        //        detalles_material = materialDTO.detalles_material,
+        //        NOMBRE_MATERIAL = materialDTO.NOMBRE_MATERIAL
+        //    };
+
+        //    await materialRepository.UpdateAsync(material);
+        //    return material;
+        //}
+
         public async Task<Material> UpdateAsync(int id, UpdateMaterialDTO materialDTO)
         {
-            Material dbMaterial = await GetByIdAsync(id);
+            try
+            {
+                Material dbMaterial = await GetByIdAsync(id);
 
-            Material material = new Material
-            {                
-                estado = materialDTO.estado,
-                detalles_material = materialDTO.detalles_material,
-                NOMBRE_MATERIAL = materialDTO.NOMBRE_MATERIAL
-            };
+                if (dbMaterial == null)
+                {
+                    // Manejar el caso en el que el material no se encuentre
+                    throw new InvalidOperationException($"Material with ID {id} not found.");
+                }
 
-            await materialRepository.UpdateAsync(material);
-            return material;
+                // Actualizar las propiedades del material existente con los valores del DTO
+                dbMaterial.estado = materialDTO.estado;
+                dbMaterial.detalles_material = materialDTO.detalles_material;
+                dbMaterial.NOMBRE_MATERIAL = materialDTO.NOMBRE_MATERIAL;
+
+                // Luego, actualiza el material en el repositorio
+                await materialRepository.UpdateAsync(dbMaterial);
+
+                return dbMaterial;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                throw;
+            }
         }
+
+
+
     }
 }

@@ -53,14 +53,15 @@ namespace Infrastructure.Endpoint.Data.Services
             return builder.Entity<Tallas>(entity =>
             {
                 entity.Table("TALLA"); // Nombre de la tabla en la base de datos para Tallas
-                entity.Property(property => property.Num_Talla)
+                entity.Property(property => property.NUM_TALLA)
                     .SetDefaultName("NUM_TALLA") // Nombre de la columna en la base de datos
-                    .WithSqlDbType(SqlDbType.NVarChar) // Tipo de datos en la base de datos
+                    .WithSqlDbType(SqlDbType.VarChar) // Tipo de datos en la base de datos
                     .AddProperty();
 
                 entity.Property(property => property.ID_TALLA)
                     .SetDefaultName("ID_TALLA") // Nombre de la columna en la base de datos para ID_TALLA
-                    .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
+                    .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos                    
+                    .AsPrimaryKey()  // Asegúrate de marcar la columna como clave primaria
                     .AddProperty();
 
                 // Puedes seguir agregando más propiedades si es necesario.
@@ -89,6 +90,7 @@ namespace Infrastructure.Endpoint.Data.Services
                 entity.Property(property => property.ID_MATERIAL)
                     .SetDefaultName("ID_MATERIAL") // Nombre de la columna en la base de datos para ID_TALLA
                     .WithSqlDbType(SqlDbType.VarChar) // Tipo de datos en la base de datos
+                    .AsPrimaryKey()  // Asegúrate de marcar la columna como clave primaria
                     .AddProperty();
 
                 // Puedes seguir agregando más propiedades si es necesario.
@@ -105,9 +107,10 @@ namespace Infrastructure.Endpoint.Data.Services
                     .AddProperty();
 
                 entity.Property(property => property.ID_COLOR)
-                    .SetDefaultName("ID_COLOR") // Nombre de la columna en la base de datos para ID_TALLA
-                    .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
-                    .AddProperty();
+                     .SetDefaultName("ID_COLOR") // Nombre de la columna en la base de datos para ID_TALLA
+                     .WithSqlDbType(SqlDbType.Int) // Tipo de datos en la base de datos
+                     .AsPrimaryKey()  // Asegúrate de marcar la columna como clave primaria
+                     .AddProperty();
 
                 // Puedes seguir agregando más propiedades si es necesario.
             }).Build();

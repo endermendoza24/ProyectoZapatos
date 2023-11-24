@@ -35,7 +35,7 @@ namespace Infrastructure.Endpoint.Data.Repositories
             Tallas tallas = new Tallas
             {                
                 ID_TALLA = sqlDbConnection.GetDataRowValue<int>(row, "ID_TALLA"),
-                Num_Talla = sqlDbConnection.GetDataRowValue<string>(row, "NUM_TALLA"),
+                NUM_TALLA = sqlDbConnection.GetDataRowValue<string>(row, "NUM_TALLA"),
                 // Agrega más propiedades de la entidad Tallas y mapea los valores desde el DataRow si es necesario.
             };
 

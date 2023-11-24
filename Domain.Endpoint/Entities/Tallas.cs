@@ -8,6 +8,6 @@ namespace Domain.Endpoint.Entities
     {
         [Key]
         public int ID_TALLA { get; set; }
-        public string Num_Talla { get; set; }
+        public string NUM_TALLA { get; set; }
     }
 }

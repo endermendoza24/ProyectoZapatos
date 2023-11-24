@@ -10,11 +10,12 @@ namespace Domain.Endpoint.Interfaces.Services
     public interface ITallasService
     {
         Task<List<Tallas>> GetAll();
-        Task<Tallas> GetByIdAsync(int id);
-        Task<Tallas> CreateAsync(CreateTallasDto tallasDto);
-        Task<Tallas> UpdateAsync(int id, UpdateTallasDto tallasDto);
-        Task<Tallas> DeleteAsync(int id);
-        //Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallaDto);
-        //Task<Tallas> UpdateAsync(Guid id, UpdateTallasDto tallasDto);
+        //Task<Marca> GetByIdAsync(Guid id);
+        Task<Tallas> GetByIdAsync(int id); // Cambiado de Guid a int
+        Task<Tallas> CreateAsync(CreateTallasDto tallaDto);
+        //Task<Marca> UpdateAsync(Guid id, UpdateMarcaDTO marcaDTO);
+        Task<Tallas> UpdateAsync(int id, UpdateTallasDto tallaDto);
+        //Task<Marca> DeleteAsync(int id);
+        Task DeleteAsync(int id);
     }
 }

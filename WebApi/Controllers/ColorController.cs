@@ -1,12 +1,13 @@
-﻿using Domain.Endpoint.Entities;
+﻿using Domain.Endpoint.DTOs;
+using Domain.Endpoint.Entities;
 using Domain.Endpoint.Interfaces.Services;
+using Domain.Endpoint.Services;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Web.UI.WebControls;
-using Domain.Endpoint.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -27,9 +28,10 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetColorId(int id)
+        [Route("api/Color/{idColor}")]
+        public async Task<IHttpActionResult> GetColorById(int idColor)
         {
-            Color color = await colorService.GetByIdAsync(id);
+            Color color = await colorService.GetByIdAsync(idColor);
             return Ok(color);
         }
 
@@ -38,17 +40,38 @@ namespace WebApi.Controllers
         public async Task<IHttpActionResult> CreateColor(CreateColorDTO colorDTO)
         {
             Color color = await colorService.CreateAsync(colorDTO);
-            var url = Url.Content("~/") + "/api/color/" + color.Id;
+            var url = Url.Content("~/") + "/api/color/" + color.ID_COLOR;
             return Created(url, color);
         }
-        
 
-        //  preguntar por este y que tiene que ver con el GUID, o sea los id que se generan en la consulta de postman...
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateColor(int id, UpdateColorDTO colorDTO)
+        [Route("api/Color/{idColor}")]
+        public async Task<IHttpActionResult> UpdateColor(int idColor, UpdateColorDTO colorDTO)
         {
-            Color color = await colorService.UpdateAsync(id, colorDTO);
+            Color color = await colorService.UpdateAsync(idColor, colorDTO);
             return Ok(color);
         }
+
+        [HttpDelete]
+        [Route("api/Color/{idColor}")]
+        public async Task<IHttpActionResult> DeleteColor(int idColor)
+        {
+            try
+            {
+                await colorService.DeleteAsync(idColor);
+                return Ok($"Color con el ID {idColor} borrado exitosamente.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Devuelve una respuesta HTTP 404 con un mensaje personalizado
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return InternalServerError(ex);
+            }
+        }
+
     }
 }
